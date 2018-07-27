@@ -11,7 +11,7 @@ mongoose.connect(
 const CardModel = require("../models/Card");
 
 axios
-  .get("https://api.magicthegathering.io/v1/cards?set=AKH&page=3")
+  .get("https://api.magicthegathering.io/v1/cards?set=AKH&page=1")
   .then(({ data }) => {
     data.cards.forEach(item => {
       const card = new CardModel({ ...item });

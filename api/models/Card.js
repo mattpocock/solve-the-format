@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const cardSchema = new mongoose.Schema({
-  name: String,
+  name: { type: String, text: true, unique: true },
   manaCost: String,
   cmc: Number,
   colors: Array,
@@ -24,7 +24,7 @@ const cardSchema = new mongoose.Schema({
   originalText: String,
   originalType: String,
   legalities: Array,
-  id: String
+  id: { type: String, unique: true }
 });
 
 module.exports = mongoose.model("Card", cardSchema);

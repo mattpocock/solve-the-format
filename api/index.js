@@ -19,8 +19,8 @@ app.use(express.json());
 app.use(
   "/",
   graphqlHTTP({
-    ...graphqlSchema
-    // graphiql: true
+    ...graphqlSchema,
+    graphiql: true
   })
 );
 

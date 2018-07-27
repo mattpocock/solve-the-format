@@ -4,7 +4,10 @@ const cardModel = require("../models/Card");
 const schema = buildSchema(`
   type Query {
     allCards(set: String, rarity: String): [Card]
-    oneCard(name: String, id: String): Card
+    cardsByName(name: String): [Card]
+  }
+  type Mutation {
+    removeAllCards: Card
   }
   type Card {
     name: String
@@ -38,10 +41,19 @@ const rootValue = {
   allCards: args => {
     return cardModel.find();
   },
-  oneCard: args => {
-    return cardModel.findOne({ ...args });
+  cardsByName: args => {
+    return cardModel
+      .find({
+        name: {
+          $regex: `${args.name}`,
+          $options: "i"
+        }
+      })
+      .limit(5);
   },
-  hello: (parent, args) => "Hello World!"
+  removeAllCards: () => {
+    return cardModel.remove();
+  }
 };
 
 module.exports = {
